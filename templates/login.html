@@ -1,0 +1,20 @@
+{%extends 'template.html'%}
+{%block title%} Login to your account{%endblock%}
+
+{%block content%}
+
+    <form action="/login" method="POST">
+    <div class="log">
+        <h1>Login</h1>
+        {%if mess%}
+        <p class="message">{{ mess | safe }}</p>
+        {%endif%}
+        {%if message%}
+        <p class="message">{{ message | safe }}</p>
+        {%endif%}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button>Login</button>
+    </div>
+    </form>
+{%endblock%}

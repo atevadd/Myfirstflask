@@ -1,0 +1,23 @@
+{%extends 'template.html'%}
+
+{%block title%} Signup to your account{%endblock%}
+
+{%block content%}
+    <form action="/register" method="POST">
+    <div class="reg">
+        <h1>Register</h1>
+        {%if message%}
+            <p class="message">{{ message | safe }}</p>
+        {%endif%}
+        <input type="text" name="name" placeholder="Full Name" >
+        
+        <input type="text" name="username" placeholder="Username">
+        
+        <input type="email" name="email" placeholder="Email">
+        
+        <input type="password" name="password" placeholder="Password">
+
+        <button>Signup</button>
+    </div>
+    </form>
+{%endblock%}

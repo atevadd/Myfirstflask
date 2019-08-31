@@ -1,0 +1,18 @@
+{%extends 'template.html'%}
+
+{%block title%}{{ session.username }} Profile{%endblock%}
+
+{%block content%}
+
+    <div class="todo">
+        <a href="/todo"><button>Add To do</button></a>
+    </div>
+
+    <div class="real">
+        {%if user_id %}
+            <div class="todos">
+                <p>{{ user_id | safe }}</p>
+            </div>
+        {%endif%}
+    </div>
+{%endblock%}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{%block title%} {%endblock%}</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="shortcut icon" href="../static/img/sett.ico" type="image/x-icon">
+  </head>
+  <body>
+    <nav>
+      <div class="menu">
+        <div class="logo">
+          <a href="/index"><img src="../static/img/vex.png" alt="" width="50px"  height="50px"/></a> 
+        </div>
+        <div class="links">
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+          </ul>
+        </div>
+        <div class="contact">
+          <a href="/logout"><input type="button" value="Logout"/></a>
+          <p>| {{ session.username }}</p>
+        </div>
+      </div>
+    </nav>
+
+    {%block content%} {%endblock%}
+  </body>
+</html>
