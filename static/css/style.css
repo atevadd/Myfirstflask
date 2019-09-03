@@ -267,3 +267,25 @@
   border: 1px solid red;
   border-radius: 4px;
 }
+
+.items{
+  width: 50%;
+  height: 100%;
+  /* border: 1px solid black; */
+  margin: 10% auto;
+  background-color: red;
+  /* padding: 20px; */
+}
+.items p{
+  padding-left: 30px;
+  padding-top: 
+}
+.head{
+  background-color: black;
+  border: 1px solid red;
+  font-size: 18px;
+  text-transform: uppercase;
+  height: 30px;
+  padding: 4px 0px 3px 30px;
+  color: white;
+}

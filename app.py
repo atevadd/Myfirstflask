@@ -1,18 +1,21 @@
 from flask import Flask, render_template, url_for, session, request, redirect
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import current_user, LoginManager, mixins, logout_user, login_required
+from config import db,app
 import models
-app = Flask(__name__)
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import current_user, LoginManager, mixins, logout_user, login_required, login_user
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:atevadd@localhost:3306/niit'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = "ynI\xcc\xdb\x03\xd6QR8X\x12\xff\xd3Wv\xf3\x14{Z\xc5\x08"
-app.config['extend_existing'] = True
 
-db = SQLAlchemy(app)
-login = LoginManager(app)
-MyAnonymousUser = login.anonymous_user
 
+login_manager = LoginManager()
+login_manager.session_protection = "strong"
+login_manager.login_view = 'login'
+login_manager.init_app(app)
+# MyAnonymousUser = login.anonymous_user
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return models.User.query.get(user_id)
 # ? homepage
 @app.route('/')
 @app.route('/index')
@@ -46,8 +49,10 @@ def login():
         password = request.form['password']
         data = models.User(username=username, password=password)
         if db.session.query(models.User).filter_by(username=username, password=password).count() >= 1:
-            session['username'] = username
-            return redirect(url_for('profile', username=username))
+            # session['user'] = models.User.query.filter_by(username=username).first()
+            user = models.User.query.filter_by(username=username).first()
+            login_user(user)
+            return redirect(url_for('profile', username=current_user))
         else:
             return render_template('login.html', message='Incorrect Username or Password')
     return render_template('login.html')
@@ -55,14 +60,14 @@ def login():
 
 @app.route('/profile/<username>', methods=['GET', 'POST'])
 def profile(username):
-    session['username'] = username
+    # session['username'] = username
     return render_template('profile.html')
 
 
 # ? logout
 @app.route('/logout')
 def logout():
-    session.clear()
+    # session.clear()
     logout_user()
     return render_template('login.html')
 
@@ -75,10 +80,10 @@ def todo():
         desc = request.form['desc']
         if title == '':
             return render_template('todo.html', message='Please Enter a title')
-        data = models.Todo(title=title, description=desc, user_id=current_user)
+        data = models.Todo(title=title, description=desc, user=current_user)
         db.session.add(data)
         db.session.commit()
-        return render_template('profile.html', user_id=current_user )
+        return render_template('profile.html', user=current_user)
     return render_template('todo.html')
 
 
