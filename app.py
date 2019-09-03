@@ -1,9 +1,8 @@
 from flask import Flask, render_template, url_for, session, request, redirect
-from config import db,app
+from config import db, app
 import models
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import current_user, LoginManager, mixins, logout_user, login_required, login_user
-
 
 
 login_manager = LoginManager()
@@ -30,8 +29,8 @@ def register():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        if name == '' or password == '':
-            return render_template('register.html', message='Please Enter The Required Field')
+        if name == '' or password == '' or username == '':
+            return render_template( 'register.html',message='Please Enter The Required Field')
         if db.session.query(models.User).filter(models.User.email == email).count() == 0:
             data = models.User(name=name, username=username,
                                email=email, password=password)
@@ -61,7 +60,9 @@ def login():
 @app.route('/profile/<username>', methods=['GET', 'POST'])
 def profile(username):
     # session['username'] = username
-    return render_template('profile.html')
+    form = current_user.todo.all()
+
+    return render_template('profile.html' ,form=form)
 
 
 # ? logout
@@ -83,7 +84,7 @@ def todo():
         data = models.Todo(title=title, description=desc, user=current_user)
         db.session.add(data)
         db.session.commit()
-        return render_template('profile.html', user=current_user)
+        return redirect(url_for('profile', username = current_user))
     return render_template('todo.html')
 
 

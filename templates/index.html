@@ -1,13 +1,10 @@
-{%extends 'template.html'%}
-
-{%block title %} Welcome to homepage {%endblock%}
-
+{%extends 'template.html'%} {%block title %} Welcome to homepage {%endblock%}
 {%block content%}
-    <div class="slide">
-        <h1>Welcome to the home of quality materials</h1>
-        <div class="but">
-            <a href="{{url_for('login')}}"><button class="active">Login </button></a>
-            <a href="{{url_for('register')}}"><button>Register</button></a>
-        </div>
-    </div>
+<div class="slide">
+  <h1>Welcome to the home of quality materials</h1>
+  <div class="but">
+    <a href="{{ url_for('login') }}"><button class="active">Login</button></a>
+    <a href="{{ url_for('register') }}"><button>Register</button></a>
+  </div>
+</div>
 {%endblock%}
