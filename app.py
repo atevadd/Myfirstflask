@@ -32,8 +32,7 @@ def register():
         if name == '' or password == '' or username == '':
             return render_template('register.html', message='Please Enter The Required Field')
         if db.session.query(models.User).filter(models.User.email == email).count() == 0:
-            data = models.User(name=name, username=username,
-                               email=email, password=password)
+            data = models.User(name=name, username=username, email=email, password=password)
             db.session.add(data)
             db.session.commit()
             return render_template('login.html', mess='Signup Successful, Please Login.')
