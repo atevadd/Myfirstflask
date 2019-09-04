@@ -30,7 +30,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         if name == '' or password == '' or username == '':
-            return render_template( 'register.html',message='Please Enter The Required Field')
+            return render_template('register.html', message='Please Enter The Required Field')
         if db.session.query(models.User).filter(models.User.email == email).count() == 0:
             data = models.User(name=name, username=username,
                                email=email, password=password)
@@ -62,7 +62,7 @@ def profile(username):
     # session['username'] = username
     form = current_user.todo.all()
 
-    return render_template('profile.html' ,form=form)
+    return render_template('profile.html', form=form)
 
 
 # ? logout
@@ -74,6 +74,7 @@ def logout():
 
 
 @app.route('/todo', methods=['GET', 'POST'])
+@login_required
 def todo():
     # user = User.query.filter_by(username).first()
     if request.method == 'POST':
@@ -84,7 +85,7 @@ def todo():
         data = models.Todo(title=title, description=desc, user=current_user)
         db.session.add(data)
         db.session.commit()
-        return redirect(url_for('profile', username = current_user))
+        return redirect(url_for('profile', username=current_user))
     return render_template('todo.html')
 
 

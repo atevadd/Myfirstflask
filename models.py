@@ -16,3 +16,6 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     todo = db.relationship('Todo', backref='user', lazy='dynamic')
+
+    def __str__(self):
+        return self.username

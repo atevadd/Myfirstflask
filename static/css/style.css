@@ -273,19 +273,22 @@
   height: 100%;
   /* border: 1px solid black; */
   margin: 10% auto;
-  background-color: red;
-  /* padding: 20px; */
+  background-color: whitesmoke;
+  border-radius: 5px;
+  
 }
 .items p{
   padding-left: 30px;
-  padding-top: 
+  padding-top: 5px;
+  padding-bottom: 10px;
 }
 .head{
   background-color: black;
-  border: 1px solid red;
   font-size: 18px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   height: 30px;
+  font-weight: 600;
+  border-radius: 5px;
   padding: 4px 0px 3px 30px;
   color: white;
 }
