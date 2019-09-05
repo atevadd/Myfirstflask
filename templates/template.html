@@ -23,7 +23,9 @@
         </div>
         <div class="contact">
           <a href="/logout"><input type="button" value="Logout"/></a>
-          <p>| {{ current_user.username }}</p>
+          <a href="/profile/{{current_user.username}}">
+            <p>| {{ current_user.username }}</p>
+          </a>
         </div>
       </div>
     </nav>
