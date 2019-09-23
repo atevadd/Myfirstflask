@@ -1,0 +1,20 @@
+{% entends 'base.html'%}
+
+{%block title%}Edit Todo {% endblock%}
+
+{%block content%}
+<form action="{{url_for('edit', id=todo.id)}}" method="get">
+    <form action="/todo" method="post">
+        <div class="list">
+           {% for todo in form %}
+            <label>Title</label>
+            <input type="text" name="title" value="{{todo.title}}" placeholder="Title">
+            <label>Description</label>
+            <textarea name="desc" cols="10" rows="10" value="{{todo.description}}"
+                placeholder="Describe your Todo"></textarea>
+            <button type="submit">Edit Student</button>
+            {%endfor%}
+        </div>
+    </form>
+</form>
+{%endblock%}

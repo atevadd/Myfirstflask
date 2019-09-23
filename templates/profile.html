@@ -22,7 +22,9 @@
     <div class="items">
     
         {% for todo in form %}
-        <div class="head">{{ todo.title | safe}}</div>
+        <div class="head">{{ todo.title | safe}}
+            <!-- <button><a href="">Edit</a></button> -->
+        </div>
         <p>{{ todo.description }}</p>
         {% endfor %}
     </div>

@@ -15,6 +15,8 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return models.User.query.get(user_id)
+
+
 # ? homepage
 @app.route('/')
 @app.route('/index')
@@ -57,6 +59,7 @@ def login():
 
 
 @app.route('/profile/<username>', methods=['GET', 'POST'])
+@login_required
 def profile(username):
     # session['username'] = username
     form = current_user.todo.all()
@@ -86,6 +89,14 @@ def todo():
         db.session.commit()
         return redirect(url_for('profile', username=current_user))
     return render_template('todo.html')
+
+
+@app.route('/profile/todo/<id>/edit', methods=['GET', 'POST','PUT'])
+def edit(id):
+    form = current_user.todo.all()
+    userid = todo.id
+    return render_template('edit.html', user = userid)
+
 
 
 if __name__ == '__main__':
